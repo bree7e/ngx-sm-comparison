@@ -15,7 +15,7 @@ export enum OrderActionTypes {
 
 export class AddOrder {
   static readonly type = OrderActionTypes.ADD_ORDER;
-  constructor(public quantity: number) {}
+  constructor(public payload: { quantity: number }) {}
 }
 
 export class ClearOrder {
@@ -25,10 +25,10 @@ export class ClearOrder {
 
 export class AddOrderSuccess {
   static readonly type = OrderActionTypes.ADD_ORDER_SUCCESS;
-  constructor(public order: Order) {}
+  constructor(public payload: { order: Order }) {}
 }
 
 export class AddOrderFailure {
   static readonly type = OrderActionTypes.ADD_ORDER_FAILURE;
-  constructor(public error: Error) {}
+  constructor(public payload: { error: Error }) {}
 }

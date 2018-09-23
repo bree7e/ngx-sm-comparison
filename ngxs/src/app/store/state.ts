@@ -74,16 +74,16 @@ export class AppState {
     //   loading: true
     // });
     const currentValue = state.order.quantity;
-    return this._appService.addProduct(currentValue, action.quantity).pipe(
-      map(order => ctx.dispatch(new AddOrderSuccess(order))),
-      catchError(error => ctx.dispatch(new AddOrderFailure(error)))
+    return this._appService.addProduct(currentValue, action.payload.quantity).pipe(
+      map(order => ctx.dispatch(new AddOrderSuccess({ order }))),
+      catchError(error => ctx.dispatch(new AddOrderFailure({ error })))
     );
   }
 
   @Action(AddOrderSuccess)
   addSuccess(ctx: StateContext<AppStateModel>, action: AddOrderSuccess) {
     ctx.patchState({
-      order: action.order,
+      order: action.payload.order,
       error: null,
       loading: false
     });
@@ -92,7 +92,7 @@ export class AppState {
   @Action(AddOrderFailure)
   addFailure(ctx: StateContext<AppStateModel>, action: AddOrderFailure) {
     ctx.patchState({
-      error: action.error,
+      error: action.payload.error,
       loading: false
     });
   }

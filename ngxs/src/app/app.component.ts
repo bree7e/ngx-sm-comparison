@@ -19,7 +19,7 @@ export class AppComponent {
   constructor(private _store: Store) {}
 
   onSubmit(): void {
-    this._store.dispatch(new AddOrder(this.count));
+    this._store.dispatch(new AddOrder({ quantity: this.count }));
   }
 
   clear(): void {
