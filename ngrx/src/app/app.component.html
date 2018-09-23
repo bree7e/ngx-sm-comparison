@@ -1,0 +1,22 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="app">
+    <h1 class="app__title">
+        Состояние {{ (state$ | async)?.title }}!
+    </h1>
+    <form (ngSubmit)="onSubmit()">
+        <div class="field">
+            <label class="field__label" for="main">Объём</label>
+            <input class="field__control" type="number" id="main" name="quantity" [(ngModel)]="count">
+        </div>
+        <div class="app__button-group">
+            <button class="app__button">Добавить</button>
+            <button class="app__button" type="reset" (click)="clear()">Очистить</button>
+        </div>
+    </form>
+    <ng-container *ngIf="state$ | async as state">
+        <p class="app__result">Заказ: {{ state.order.quantity }} x {{ state.order.price }} ₽ = {{
+            state.order.quantity * state.order.price }} ₽</p>
+        <p *ngIf="loading$ | async">Загрузка...</p>
+        <p class="app__error">{{ state.error?.message }}</p>
+    </ng-container>
+</div>
