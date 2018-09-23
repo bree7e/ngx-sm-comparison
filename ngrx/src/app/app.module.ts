@@ -3,23 +3,23 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppComponent } from './app.component';
-import { ProductEffects } from './store/effects';
-import { productReducer } from './store/reducer';
-import { StoreModule } from '@ngrx/store';
+import { OrderEffects } from './store/effects';
+import { orderReducer } from './store/reducer';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     FormsModule,
-    StoreModule.forRoot({ state: productReducer }),
+    StoreModule.forRoot({ state: orderReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25 // хранить 25 последних состояний
     }),
-    EffectsModule.forRoot([ProductEffects])
+    EffectsModule.forRoot([OrderEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

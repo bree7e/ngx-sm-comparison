@@ -23,7 +23,7 @@ export class AddOrderSuccess implements Action {
   constructor(public payload: { order: Order }) {}
 }
 
-export class AddProductFailure implements Action {
+export class AddOrderFailure implements Action {
   readonly type = OrderActionTypes.ADD_ORDER_FAILURE;
   constructor(public payload: { error: Error }) {}
 }
@@ -31,5 +31,5 @@ export class AddProductFailure implements Action {
 export type ProductActions =
   | AddOrder
   | AddOrderSuccess
-  | AddProductFailure
+  | AddOrderFailure
   | ClearOrder;

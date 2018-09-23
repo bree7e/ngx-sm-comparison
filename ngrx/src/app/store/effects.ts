@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
 import { AppService } from '../app.service';
 import {
   AddOrder,
-  AddProductFailure,
+  AddOrderFailure,
   AddOrderSuccess,
   OrderActionTypes
 } from './actions';
@@ -16,10 +16,10 @@ import { AppState } from './reducer';
 import { getQuantity } from './selectors';
 
 @Injectable()
-export class ProductEffects {
+export class OrderEffects {
   constructor(
     private actions$: Actions,
-    private _honeyService: AppService,
+    private _appService: AppService,
     private _store: Store<AppState>
   ) {}
 
@@ -29,15 +29,15 @@ export class ProductEffects {
    */
   @Effect()
   addProduct$: Observable<
-    AddOrderSuccess | AddProductFailure
+    AddOrderSuccess | AddOrderFailure
   > = this.actions$.pipe(
     ofType(OrderActionTypes.ADD_ORDER),
     map((action: AddOrder) => action.payload.quantity),
     withLatestFrom(this._store.select(getQuantity)),
     mergeMap(([quantity, currentQuantity]) =>
-      this._honeyService.addProduct(currentQuantity, quantity).pipe(
+      this._appService.addProduct(currentQuantity, quantity).pipe(
         map(order => new AddOrderSuccess({ order })),
-        catchError(error => of(new AddProductFailure({ error })))
+        catchError(error => of(new AddOrderFailure({ error })))
       )
     )
   );

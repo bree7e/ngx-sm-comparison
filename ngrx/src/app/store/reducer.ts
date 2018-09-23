@@ -22,7 +22,7 @@ const initialState: AppState = {
   loading: false
 };
 
-export function productReducer(
+export function orderReducer(
   state: AppState = initialState,
   action: ProductActions
 ): AppState {
