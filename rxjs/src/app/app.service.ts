@@ -21,7 +21,7 @@ export class AppService {
   };
 
   private _state = new BehaviorSubject<AppState>(this.initialState);
-  public state$ = this._state.asObservable();
+  public readonly state$ = this._state.asObservable();
   public loading$ = this.state$.pipe(map(s => s.loading));
 
   set order(order: Order) {
