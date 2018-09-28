@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { Store, Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -9,7 +9,8 @@ import { AppStateModel, AppState } from './store/state';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
   @Select(AppState) state$: Observable<AppStateModel>;
