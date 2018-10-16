@@ -1,0 +1,45 @@
+.app {
+    width: 960px;
+    padding-right: 30px;
+    padding-left: 30px;
+    margin-right: auto;
+    margin-left: auto;
+    &__button-group {
+        margin-top: 1rem;
+    }
+    &__button {
+        display: inline-block;
+        vertical-align: middle;
+        user-select: none;
+        border: 1px solid lightgray;
+        margin-right: .375rem;
+        padding: .3rem .7rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border-radius: .25rem;
+        transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;        
+        &:not(:disabled):not(.disabled) {
+            cursor: pointer;
+        }
+    }
+    &__error {
+        color: crimson;
+    }
+}
+
+
+.field {
+    &__control {
+        display: block;
+        height: calc(1.25rem + 2px);
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;        
+    }
+}
