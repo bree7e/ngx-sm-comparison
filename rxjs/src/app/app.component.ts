@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { AppService } from './app.service';
+import { AppScanService } from './app-scan.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ export class AppComponent {
   public loading$ = this._appService.loading$;
   public count: number;
 
-  constructor (private _appService: AppService) {}
+  constructor (private _appService: AppScanService) {}
 
   onSubmit(): void {
     this._appService.add(this.count);
