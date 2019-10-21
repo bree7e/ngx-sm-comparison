@@ -28,7 +28,7 @@ export class AppStore extends Store<AppState> {
     super(createInitialState());
   }
 
-  @action({ type: 'Clear state' })
+  @action('[Order] Clear')
   clear(): void {
     this.update(initialState);
   }
