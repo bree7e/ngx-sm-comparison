@@ -1,7 +1,15 @@
 import { Injectable } from '@angular/core';
 
-import { Subject } from 'rxjs';
-import { map, scan, publishReplay, refCount } from 'rxjs/operators';
+import { Subject, MonoTypeOperatorFunction } from 'rxjs';
+import {
+  filter,
+  map,
+  scan,
+  publishReplay,
+  refCount,
+  mergeMap,
+  withLatestFrom,
+} from 'rxjs/operators';
 
 import { AppDataService } from './app.data.service';
 import { AppState, Order } from './app.service.interface';
@@ -38,6 +46,12 @@ export type AllOrderActions =
   | AddOrderFailure
   | ClearOrder;
 
+function ofType<T extends AllOrderActions>(
+  type: OrderActionTypes
+): MonoTypeOperatorFunction<T> {
+  return filter(action => type === action.type);
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -73,10 +87,7 @@ export class AppScanService {
     this._action$.next(action);
   }
 
-  private _reducer(
-    state: AppState,
-    action: AllOrderActions
-  ): AppState {
+  private _reducer(state: AppState, action: AllOrderActions): AppState {
     switch (action.type) {
       case OrderActionTypes.ADD_ORDER: {
         this._appDataService
@@ -121,5 +132,32 @@ export class AppScanService {
         return state;
       }
     }
+  }
+
+  private _initAsyncActions(): void {
+    this._action$
+      .pipe(
+        filter(action => action.type === OrderActionTypes.ADD_ORDER),
+        map((action: AddOrder) => action),
+        withLatestFrom(this.state$),
+        mergeMap(([action, state]) =>
+          this._appDataService.addProduct(
+            state.order.quantity,
+            action.payload.quantity
+          )
+        )
+      )
+      .subscribe({
+        next: order =>
+          this.dispatch({
+            type: OrderActionTypes.ADD_ORDER_SUCCESS,
+            payload: { order },
+          }),
+        error: error =>
+          this.dispatch({
+            type: OrderActionTypes.ADD_ORDER_FAILURE,
+            payload: { error },
+          }),
+      });
   }
 }
