@@ -139,7 +139,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "rxjs:build"
+            "browserTarget": "rxjs:build",
+            "proxyConfig": "apps/api/proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -259,7 +260,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ngrx:build"
+            "browserTarget": "ngrx:build",
+            "proxyConfig": "apps/api/proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -379,7 +381,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ngxs:build"
+            "browserTarget": "ngxs:build",
+            "proxyConfig": "apps/api/proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -499,7 +502,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "akita:build"
+            "browserTarget": "akita:build",
+            "proxyConfig": "apps/api/proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -619,7 +623,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "mobx:build"
+            "browserTarget": "mobx:build",
+            "proxyConfig": "apps/api/proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -742,7 +747,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "redux-observable:build"
+            "browserTarget": "redux-observable:build",
+            "proxyConfig": "apps/api/proxy.conf.json"
           },
           "configurations": {
             "production": {
