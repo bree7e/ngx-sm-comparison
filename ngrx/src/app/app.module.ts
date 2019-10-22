@@ -8,14 +8,14 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppComponent } from './app.component';
 import { OrderEffects } from './store/effects';
-import { orderReducer } from './store/reducer';
+import { reducer } from './store/reducer';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     FormsModule,
-    StoreModule.forRoot({ state: orderReducer }),
+    StoreModule.forRoot({ state: reducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25 // хранить 25 последних состояний
     }),

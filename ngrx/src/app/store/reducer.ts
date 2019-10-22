@@ -1,4 +1,5 @@
-import { ProductActions, OrderActionTypes } from './actions';
+import * as ProductActions from './actions';
+import { createReducer, on, Action } from '@ngrx/store';
 
 export interface Order {
   quantity: number;
@@ -16,42 +17,33 @@ const initialState: AppState = {
   title: 'NgRx',
   order: {
     quantity: 0,
-    price: 700
+    price: 700,
   },
   error: null,
-  loading: false
+  loading: false,
 };
 
-export function orderReducer(
-  state: AppState = initialState,
-  action: ProductActions
-): AppState {
-//   console.log(action);
-  switch (action.type) {
-    case OrderActionTypes.ADD_ORDER:
-      return {
-        ...state,
-        error: null,
-        loading: true
-      };
-    case OrderActionTypes.ADD_ORDER_SUCCESS:
-      return {
-        ...state,
-        order: action.payload.order,
-        error: null,
-        loading: false
-      };
-    case OrderActionTypes.ADD_ORDER_FAILURE:
-      return {
-        ...state,
-        error: action.payload.error,
-        loading: false
-      };
-    case OrderActionTypes.CLEAR_ORDER:
-      return {
-        ...initialState
-      };
-    default:
-      return state;
-  }
+const orderReducer = createReducer(
+  initialState,
+  on(ProductActions.addOrder, state => ({
+    ...state,
+    error: null,
+    loading: true,
+  })),
+  on(ProductActions.addOrderSuccess, (state, { order }) => ({
+    ...state,
+    order,
+    error: null,
+    loading: false,
+  })),
+  on(ProductActions.addOrderFailure, (state, { error }) => ({
+    ...state,
+    error,
+    loading: false,
+  })),
+  on(ProductActions.clearOrder, () => ({ ...initialState }))
+);
+
+export function reducer(state: AppState | undefined, action: Action) {
+  return orderReducer(state, action);
 }

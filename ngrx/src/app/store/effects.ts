@@ -2,16 +2,11 @@ import { Injectable } from '@angular/core';
 
 import { of, Observable } from 'rxjs';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 
 import { AppService } from '../app.service';
-import {
-  AddOrder,
-  AddOrderFailure,
-  AddOrderSuccess,
-  OrderActionTypes
-} from './actions';
+import * as ProductActions from './actions';
 import { AppState } from './reducer';
 import { getQuantity } from './selectors';
 
@@ -27,17 +22,16 @@ export class OrderEffects {
    * Ловит action из UI и обращается к сервису
    * Ответ сервиса оформляет одним из 2 action'ов
    */
-  @Effect()
-  addProduct$: Observable<
-    AddOrderSuccess | AddOrderFailure
-  > = this.actions$.pipe(
-    ofType(OrderActionTypes.ADD_ORDER),
-    map((action: AddOrder) => action.payload.quantity),
-    withLatestFrom(this._store.select(getQuantity)),
-    mergeMap(([quantity, currentQuantity]) =>
-      this._appService.addProduct(currentQuantity, quantity).pipe(
-        map(order => new AddOrderSuccess({ order })),
-        catchError(error => of(new AddOrderFailure({ error })))
+  loadMovies$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ProductActions.addOrder),
+      map(action => action.quantity),
+      withLatestFrom(this._store.select(getQuantity)),
+      mergeMap(([quantity, currentQuantity]) =>
+        this._appService.addProduct(currentQuantity, quantity).pipe(
+          map(order => ProductActions.addOrderSuccess({ order })),
+          catchError(error => of(ProductActions.addOrderFailure({ error })))
+        )
       )
     )
   );

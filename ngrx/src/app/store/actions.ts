@@ -1,35 +1,29 @@
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
+
 import { Order } from './reducer';
 
-export enum OrderActionTypes {
+enum OrderActionTypes {
   ADD_ORDER = '[Order] Add',
   ADD_ORDER_SUCCESS = '[Order] Added',
   ADD_ORDER_FAILURE = '[Order] Add failed',
   CLEAR_ORDER = '[Order] Clear'
 }
 
-export class AddOrder implements Action {
-  readonly type = OrderActionTypes.ADD_ORDER;
-  constructor(public payload: { quantity: number }) {}
-}
+export const addOrder = createAction(
+  OrderActionTypes.ADD_ORDER,
+  props<{ quantity: number }>()
+);
 
-export class ClearOrder implements Action {
-  readonly type = OrderActionTypes.CLEAR_ORDER;
-  constructor() {}
-}
+export const clearOrder = createAction(
+  OrderActionTypes.CLEAR_ORDER,
+);
 
-export class AddOrderSuccess implements Action {
-  readonly type = OrderActionTypes.ADD_ORDER_SUCCESS;
-  constructor(public payload: { order: Order }) {}
-}
+export const addOrderSuccess = createAction(
+  OrderActionTypes.ADD_ORDER_SUCCESS,
+  props<{ order: Order }>()
+);
 
-export class AddOrderFailure implements Action {
-  readonly type = OrderActionTypes.ADD_ORDER_FAILURE;
-  constructor(public payload: { error: Error }) {}
-}
-
-export type ProductActions =
-  | AddOrder
-  | AddOrderSuccess
-  | AddOrderFailure
-  | ClearOrder;
+export const addOrderFailure = createAction(
+  OrderActionTypes.ADD_ORDER_FAILURE,
+  props<{ error: Error }>()
+);

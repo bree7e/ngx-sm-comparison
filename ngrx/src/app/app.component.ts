@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getState, getLoading } from './store/selectors';
 import { AppState } from './store/reducer';
-import { AddOrder, ClearOrder } from './store/actions';
+import { addOrder, clearOrder } from './store/actions';
 
 @Component({
   selector: 'app-root',
@@ -18,10 +18,10 @@ export class AppComponent {
   constructor (private _store: Store<AppState>) {}
 
   onSubmit(): void {
-    this._store.dispatch(new AddOrder({ quantity: this.count }));
+    this._store.dispatch(addOrder({ quantity: this.count }));
   }
 
   clear(): void {
-    this._store.dispatch(new ClearOrder());
+    this._store.dispatch(clearOrder());
   }
 }
