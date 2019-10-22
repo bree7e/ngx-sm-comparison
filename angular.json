@@ -1,0 +1,820 @@
+{
+  "version": 1,
+  "projects": {
+    "api": {
+      "root": "apps/api",
+      "sourceRoot": "apps/api/src",
+      "projectType": "application",
+      "prefix": "api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/api",
+            "main": "apps/api/src/main.ts",
+            "tsConfig": "apps/api/tsconfig.app.json",
+            "assets": ["apps/api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/api/src/environments/environment.ts",
+                  "with": "apps/api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "api:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/api/tsconfig.app.json",
+              "apps/api/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/api/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/api/jest.config.js",
+            "tsConfig": "apps/api/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "api-interfaces": {
+      "root": "libs/api-interfaces",
+      "sourceRoot": "libs/api-interfaces/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/api-interfaces/tsconfig.lib.json",
+              "libs/api-interfaces/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/api-interfaces/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api-interfaces/jest.config.js",
+            "tsConfig": "libs/api-interfaces/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "rxjs": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/rxjs",
+      "sourceRoot": "apps/rxjs/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/rxjs",
+            "index": "apps/rxjs/src/index.html",
+            "main": "apps/rxjs/src/main.ts",
+            "polyfills": "apps/rxjs/src/polyfills.ts",
+            "tsConfig": "apps/rxjs/tsconfig.app.json",
+            "aot": false,
+            "assets": ["apps/rxjs/src/favicon.ico", "apps/rxjs/src/assets"],
+            "styles": ["apps/rxjs/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/rxjs/src/environments/environment.ts",
+                  "with": "apps/rxjs/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "rxjs:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "rxjs:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "rxjs:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/rxjs/tsconfig.app.json",
+              "apps/rxjs/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/rxjs/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/rxjs/jest.config.js",
+            "tsConfig": "apps/rxjs/tsconfig.spec.json",
+            "setupFile": "apps/rxjs/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "rxjs-e2e": {
+      "root": "apps/rxjs-e2e",
+      "sourceRoot": "apps/rxjs-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/rxjs-e2e/cypress.json",
+            "tsConfig": "apps/rxjs-e2e/tsconfig.e2e.json",
+            "devServerTarget": "rxjs:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "rxjs:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/rxjs-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/rxjs-e2e/**"]
+          }
+        }
+      }
+    },
+    "ngrx": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/ngrx",
+      "sourceRoot": "apps/ngrx/src",
+      "prefix": "nx-sm-somparison",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/ngrx",
+            "index": "apps/ngrx/src/index.html",
+            "main": "apps/ngrx/src/main.ts",
+            "polyfills": "apps/ngrx/src/polyfills.ts",
+            "tsConfig": "apps/ngrx/tsconfig.app.json",
+            "aot": false,
+            "assets": ["apps/ngrx/src/favicon.ico", "apps/ngrx/src/assets"],
+            "styles": ["apps/ngrx/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/ngrx/src/environments/environment.ts",
+                  "with": "apps/ngrx/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ngrx:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ngrx:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ngrx:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/ngrx/tsconfig.app.json",
+              "apps/ngrx/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/ngrx/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/ngrx/jest.config.js",
+            "tsConfig": "apps/ngrx/tsconfig.spec.json",
+            "setupFile": "apps/ngrx/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "ngrx-e2e": {
+      "root": "apps/ngrx-e2e",
+      "sourceRoot": "apps/ngrx-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/ngrx-e2e/cypress.json",
+            "tsConfig": "apps/ngrx-e2e/tsconfig.e2e.json",
+            "devServerTarget": "ngrx:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ngrx:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/ngrx-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/ngrx-e2e/**"]
+          }
+        }
+      }
+    },
+    "ngxs": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/ngxs",
+      "sourceRoot": "apps/ngxs/src",
+      "prefix": "nx-sm-somparison",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/ngxs",
+            "index": "apps/ngxs/src/index.html",
+            "main": "apps/ngxs/src/main.ts",
+            "polyfills": "apps/ngxs/src/polyfills.ts",
+            "tsConfig": "apps/ngxs/tsconfig.app.json",
+            "aot": false,
+            "assets": ["apps/ngxs/src/favicon.ico", "apps/ngxs/src/assets"],
+            "styles": ["apps/ngxs/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/ngxs/src/environments/environment.ts",
+                  "with": "apps/ngxs/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ngxs:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ngxs:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ngxs:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/ngxs/tsconfig.app.json",
+              "apps/ngxs/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/ngxs/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/ngxs/jest.config.js",
+            "tsConfig": "apps/ngxs/tsconfig.spec.json",
+            "setupFile": "apps/ngxs/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "ngxs-e2e": {
+      "root": "apps/ngxs-e2e",
+      "sourceRoot": "apps/ngxs-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/ngxs-e2e/cypress.json",
+            "tsConfig": "apps/ngxs-e2e/tsconfig.e2e.json",
+            "devServerTarget": "ngxs:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ngxs:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/ngxs-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/ngxs-e2e/**"]
+          }
+        }
+      }
+    },
+    "akita": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/akita",
+      "sourceRoot": "apps/akita/src",
+      "prefix": "nx-sm-somparison",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/akita",
+            "index": "apps/akita/src/index.html",
+            "main": "apps/akita/src/main.ts",
+            "polyfills": "apps/akita/src/polyfills.ts",
+            "tsConfig": "apps/akita/tsconfig.app.json",
+            "aot": false,
+            "assets": ["apps/akita/src/favicon.ico", "apps/akita/src/assets"],
+            "styles": ["apps/akita/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/akita/src/environments/environment.ts",
+                  "with": "apps/akita/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "akita:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "akita:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "akita:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/akita/tsconfig.app.json",
+              "apps/akita/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/akita/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/akita/jest.config.js",
+            "tsConfig": "apps/akita/tsconfig.spec.json",
+            "setupFile": "apps/akita/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "akita-e2e": {
+      "root": "apps/akita-e2e",
+      "sourceRoot": "apps/akita-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/akita-e2e/cypress.json",
+            "tsConfig": "apps/akita-e2e/tsconfig.e2e.json",
+            "devServerTarget": "akita:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "akita:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/akita-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/akita-e2e/**"]
+          }
+        }
+      }
+    },
+    "mobx": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/mobx",
+      "sourceRoot": "apps/mobx/src",
+      "prefix": "nx-sm-somparison",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/mobx",
+            "index": "apps/mobx/src/index.html",
+            "main": "apps/mobx/src/main.ts",
+            "polyfills": "apps/mobx/src/polyfills.ts",
+            "tsConfig": "apps/mobx/tsconfig.app.json",
+            "aot": false,
+            "assets": ["apps/mobx/src/favicon.ico", "apps/mobx/src/assets"],
+            "styles": ["apps/mobx/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/mobx/src/environments/environment.ts",
+                  "with": "apps/mobx/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "mobx:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "mobx:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "mobx:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/mobx/tsconfig.app.json",
+              "apps/mobx/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/mobx/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/mobx/jest.config.js",
+            "tsConfig": "apps/mobx/tsconfig.spec.json",
+            "setupFile": "apps/mobx/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "mobx-e2e": {
+      "root": "apps/mobx-e2e",
+      "sourceRoot": "apps/mobx-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/mobx-e2e/cypress.json",
+            "tsConfig": "apps/mobx-e2e/tsconfig.e2e.json",
+            "devServerTarget": "mobx:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "mobx:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/mobx-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/mobx-e2e/**"]
+          }
+        }
+      }
+    },
+    "redux-observable": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/redux-observable",
+      "sourceRoot": "apps/redux-observable/src",
+      "prefix": "nx-sm-somparison",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/redux-observable",
+            "index": "apps/redux-observable/src/index.html",
+            "main": "apps/redux-observable/src/main.ts",
+            "polyfills": "apps/redux-observable/src/polyfills.ts",
+            "tsConfig": "apps/redux-observable/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "apps/redux-observable/src/favicon.ico",
+              "apps/redux-observable/src/assets"
+            ],
+            "styles": ["apps/redux-observable/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/redux-observable/src/environments/environment.ts",
+                  "with": "apps/redux-observable/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "redux-observable:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "redux-observable:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "redux-observable:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/redux-observable/tsconfig.app.json",
+              "apps/redux-observable/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/redux-observable/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/redux-observable/jest.config.js",
+            "tsConfig": "apps/redux-observable/tsconfig.spec.json",
+            "setupFile": "apps/redux-observable/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "redux-observable-e2e": {
+      "root": "apps/redux-observable-e2e",
+      "sourceRoot": "apps/redux-observable-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/redux-observable-e2e/cypress.json",
+            "tsConfig": "apps/redux-observable-e2e/tsconfig.e2e.json",
+            "devServerTarget": "redux-observable:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "redux-observable:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/redux-observable-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/redux-observable-e2e/**"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "rxjs"
+}

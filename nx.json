@@ -1,0 +1,54 @@
+{
+  "npmScope": "nx-sm-somparison",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": "*",
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "api": {
+      "tags": []
+    },
+    "api-interfaces": {
+      "tags": []
+    },
+    "rxjs-e2e": {
+      "tags": []
+    },
+    "rxjs": {
+      "tags": []
+    },
+    "ngrx-e2e": {
+      "tags": []
+    },
+    "ngrx": {
+      "tags": []
+    },
+    "ngxs-e2e": {
+      "tags": []
+    },
+    "ngxs": {
+      "tags": []
+    },
+    "akita-e2e": {
+      "tags": []
+    },
+    "akita": {
+      "tags": []
+    },
+    "mobx-e2e": {
+      "tags": []
+    },
+    "mobx": {
+      "tags": []
+    },
+    "redux-observable-e2e": {
+      "tags": []
+    },
+    "redux-observable": {
+      "tags": []
+    }
+  }
+}
