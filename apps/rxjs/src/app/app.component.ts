@@ -14,7 +14,7 @@ export class AppComponent {
   public loading$ = this._appService.loading$;
   public count: number;
 
-  constructor (private _appService: AppScanService) {}
+  constructor (private _appService: AppService) {}
 
   onSubmit(): void {
     this._appService.add(this.count);

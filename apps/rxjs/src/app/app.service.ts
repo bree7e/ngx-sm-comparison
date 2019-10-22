@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ApiDataAccessService } from '@ngx-sm/api-data-access';
 
 import { AppDataService } from './app.data.service';
 import { AppState, Order } from './app.service.interface';
@@ -48,20 +49,21 @@ export class AppService {
     });
   }
 
-  constructor(private _appDataService: AppDataService) {}
+  constructor(
+    private _appDataService: AppDataService,
+    private _apiData: ApiDataAccessService
+  ) {}
 
   add(quantity: number): void {
     const oldState = this._state.getValue();
     this.loading = true;
     this._appDataService
       .addProduct(oldState.order.quantity, quantity)
-      .subscribe(
-        order => (this.order = order),
-        error => (this.error = error)
-      );
+      .subscribe(order => (this.order = order), error => (this.error = error));
   }
 
   reset(): void {
     this._state.next(this.initialState);
+    this._apiData.hello().subscribe(r => console.log(r));
   }
 }

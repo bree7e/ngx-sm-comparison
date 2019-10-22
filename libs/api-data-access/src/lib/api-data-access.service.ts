@@ -16,6 +16,6 @@ export class ApiDataAccessService {
   ) {}
 
   hello() {
-    return this._http.get<Message>(`${this._config.prefix}/hello`);
+    return this._http.get<Message>(`/${this._config.prefix}/hello`);
   }
 }
