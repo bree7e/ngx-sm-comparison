@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 
-import { Message } from '@nx-sm-somparison/api-interfaces';
+import { Message } from '@ngx-sm/api-interfaces';
 
 import { AppService } from './app.service';
 

@@ -1,5 +1,5 @@
 {
-  "npmScope": "nx-sm-somparison",
+  "npmScope": "ngx-sm",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",

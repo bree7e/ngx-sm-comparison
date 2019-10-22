@@ -209,7 +209,7 @@
       },
       "root": "apps/ngrx",
       "sourceRoot": "apps/ngrx/src",
-      "prefix": "nx-sm-somparison",
+      "prefix": "ngx-sm",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -329,7 +329,7 @@
       },
       "root": "apps/ngxs",
       "sourceRoot": "apps/ngxs/src",
-      "prefix": "nx-sm-somparison",
+      "prefix": "ngx-sm",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -449,7 +449,7 @@
       },
       "root": "apps/akita",
       "sourceRoot": "apps/akita/src",
-      "prefix": "nx-sm-somparison",
+      "prefix": "ngx-sm",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -569,7 +569,7 @@
       },
       "root": "apps/mobx",
       "sourceRoot": "apps/mobx/src",
-      "prefix": "nx-sm-somparison",
+      "prefix": "ngx-sm",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -689,7 +689,7 @@
       },
       "root": "apps/redux-observable",
       "sourceRoot": "apps/redux-observable/src",
-      "prefix": "nx-sm-somparison",
+      "prefix": "ngx-sm",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
