@@ -808,6 +808,33 @@
           }
         }
       }
+    },
+    "api-data-access": {
+      "projectType": "library",
+      "root": "libs/api-data-access",
+      "sourceRoot": "libs/api-data-access/src",
+      "prefix": "ngx-sm",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/api-data-access/tsconfig.lib.json",
+              "libs/api-data-access/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/api-data-access/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api-data-access/jest.config.js",
+            "tsConfig": "libs/api-data-access/tsconfig.spec.json",
+            "setupFile": "libs/api-data-access/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
     }
   },
   "cli": {

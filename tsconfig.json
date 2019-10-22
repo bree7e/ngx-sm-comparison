@@ -16,7 +16,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@ngx-sm/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@ngx-sm/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@ngx-sm/api-data-access": ["libs/api-data-access/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -49,6 +49,9 @@
     },
     "redux-observable": {
       "tags": []
+    },
+    "api-data-access": {
+      "tags": []
     }
   }
 }
