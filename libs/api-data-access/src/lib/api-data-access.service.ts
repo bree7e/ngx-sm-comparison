@@ -18,4 +18,14 @@ export class ApiDataAccessService {
   hello() {
     return this._http.get<Message>(`/${this._config.prefix}/hello`);
   }
+
+  /**
+   * Получить данные для заказа
+   * @param value - количество продукта
+   */
+  order(value: string) {
+    return this._http.get<Message>(`/${this._config.prefix}/order`, {
+      params: { value }
+    });
+  }
 }
