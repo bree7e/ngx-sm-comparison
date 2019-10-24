@@ -9,10 +9,12 @@ import {
   refCount,
   mergeMap,
   withLatestFrom,
+  switchMap,
 } from 'rxjs/operators';
+import { Order } from '@ngx-sm/api-interfaces';
+import { ApiDataAccessService } from '@ngx-sm/api-data-access';
 
-import { AppDataService } from './app.data.service';
-import { AppState, Order } from './app.service.interface';
+import { AppState } from './app.service.interface';
 
 export enum OrderActionTypes {
   ADD_ORDER = '[Order] Add',
@@ -61,6 +63,7 @@ export class AppScanService {
     order: {
       quantity: 0,
       price: 700,
+      sum: null
     },
     error: null,
     loading: false,
@@ -73,7 +76,9 @@ export class AppScanService {
   );
   readonly loading$ = this.state$.pipe(map(s => s.loading));
 
-  constructor(private _appDataService: AppDataService) {}
+  constructor(private _apiData: ApiDataAccessService) {
+    // this._initAsyncActions();
+  }
 
   add(quantity: number): void {
     this.dispatch({ type: OrderActionTypes.ADD_ORDER, payload: { quantity } });
@@ -90,18 +95,18 @@ export class AppScanService {
   private _reducer(state: AppState, action: AllOrderActions): AppState {
     switch (action.type) {
       case OrderActionTypes.ADD_ORDER: {
-        this._appDataService
-          .addProduct(state.order.quantity, action.payload.quantity)
+        this._apiData
+          .order(String(state.order.quantity + action.payload.quantity))
           .subscribe({
             next: order =>
               this.dispatch({
                 type: OrderActionTypes.ADD_ORDER_SUCCESS,
                 payload: { order },
               }),
-            error: error =>
+            error: errorRes =>
               this.dispatch({
                 type: OrderActionTypes.ADD_ORDER_FAILURE,
-                payload: { error },
+                payload: { error: new Error(errorRes.error.message) },
               }),
           });
         return {
@@ -134,16 +139,18 @@ export class AppScanService {
     }
   }
 
+  /**
+   * Необходимость отменять запросы
+   */
   private _initAsyncActions(): void {
     this._action$
       .pipe(
         filter(action => action.type === OrderActionTypes.ADD_ORDER),
         map((action: AddOrder) => action),
         withLatestFrom(this.state$),
-        mergeMap(([action, state]) =>
-          this._appDataService.addProduct(
-            state.order.quantity,
-            action.payload.quantity
+        switchMap(([action, state]) =>
+          this._apiData.order(
+            String(state.order.quantity + action.payload.quantity),
           )
         )
       )
@@ -153,10 +160,10 @@ export class AppScanService {
             type: OrderActionTypes.ADD_ORDER_SUCCESS,
             payload: { order },
           }),
-        error: error =>
+        error: errorRes =>
           this.dispatch({
             type: OrderActionTypes.ADD_ORDER_FAILURE,
-            payload: { error },
+            payload: { error: new Error(errorRes.error.message) },
           }),
       });
   }

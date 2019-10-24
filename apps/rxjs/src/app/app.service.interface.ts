@@ -1,7 +1,5 @@
-export interface Order {
-  quantity: number;
-  price: number;
-}
+
+import { Order } from '@ngx-sm/api-interfaces';
 
 export interface AppState {
   title: string;

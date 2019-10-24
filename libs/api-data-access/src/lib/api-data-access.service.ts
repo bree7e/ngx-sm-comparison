@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Message } from '@ngx-sm/api-interfaces';
+import { Message, Order } from '@ngx-sm/api-interfaces';
 
 import {
   API_DATA_CONFIG_TOKEN,
@@ -24,7 +24,7 @@ export class ApiDataAccessService {
    * @param value - количество продукта
    */
   order(value: string) {
-    return this._http.get<Message>(`/${this._config.prefix}/order`, {
+    return this._http.get<Order>(`/${this._config.prefix}/order`, {
       params: { value }
     });
   }

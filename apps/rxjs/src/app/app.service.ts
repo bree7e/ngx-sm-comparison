@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiDataAccessService } from '@ngx-sm/api-data-access';
+import { Order } from '@ngx-sm/api-interfaces';
 
-import { AppDataService } from './app.data.service';
-import { AppState, Order } from './app.service.interface';
+import { AppState } from './app.service.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,8 @@ export class AppService {
     title: 'Rxjs',
     order: {
       quantity: 0,
-      price: 700
+      price: 700,
+      sum: null
     },
     error: null,
     loading: false
@@ -49,17 +50,17 @@ export class AppService {
     });
   }
 
-  constructor(
-    private _appDataService: AppDataService,
-    private _apiData: ApiDataAccessService
-  ) {}
+  constructor(private _apiData: ApiDataAccessService) {}
 
-  add(quantity: number): void {
-    const oldState = this._state.getValue();
+  add(quantity: string): void {
+    const oldOrder = this._state.getValue().order;
     this.loading = true;
-    this._appDataService
-      .addProduct(oldState.order.quantity, quantity)
-      .subscribe(order => (this.order = order), error => (this.error = error));
+    this._apiData
+      .order(oldOrder.quantity + quantity)
+      .subscribe(
+        order => (this.order = order),
+        errorRes => (this.error = new Error(errorRes.error.message))
+      );
   }
 
   reset(): void {
