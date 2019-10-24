@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Store, StoreConfig, action } from '@datorama/akita';
-import { AppState } from './app.model';
+import { AppState, INITIAL_STATE, OrderActionType } from '@ngx-sm/flux';
 
 const initialState: AppState = {
+  ...INITIAL_STATE,
   title: 'Akita',
-  order: {
-    quantity: 0,
-    price: 700
-  }
 };
 
 export function createInitialState(): AppState {
@@ -28,7 +25,7 @@ export class AppStore extends Store<AppState> {
     super(createInitialState());
   }
 
-  @action('[Order] Clear')
+  @action(OrderActionType.CLEAR_ORDER)
   clear(): void {
     this.update(initialState);
   }

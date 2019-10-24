@@ -4,7 +4,9 @@ import { applyTransaction, action } from '@datorama/akita';
 
 import { AppStore } from './app.store';
 import { AppQuery } from './app.query';
-import { AppDataService } from '../app.data.service';
+import { OrderActionType } from '@ngx-sm/flux';
+import { ApiDataAccessService } from '@ngx-sm/api-data-access';
+
 
 /**
  * Асинхронная логика и вызовы апдейтов должны быть инкапсулированы в сервисы.
@@ -14,14 +16,14 @@ export class AppService {
   constructor(
     private _appStore: AppStore, // отправлять actions
     private _appQuery: AppQuery, // брать данные
-    private _appDataService: AppDataService, // backend
+    private _apiData: ApiDataAccessService,
   ) {}
 
-  @action('[Order] Add product to order')
+  @action(OrderActionType.ADD_ORDER)
   public add(quantity: number): void {
     const currentValue = this._appQuery.getValue().order.quantity;
     this._appStore.setLoading(true);
-    this._appDataService.addProduct(currentValue, quantity).subscribe(
+    this._apiData.order(String(currentValue + quantity)).subscribe(
       order => {
         // Transactions are an optimization for performing multiple operations on the store
         // @see https://netbasal.gitbook.io/akita/entity-store/transactions
@@ -31,9 +33,9 @@ export class AppService {
           this._appStore.setError(null);
         });
       },
-      error => {
+      errorRes => {
         this._appStore.setLoading(false);
-        this._appStore.setError(error);
+        this._appStore.setError(new Error(errorRes.error.message));
       }
     );
   }
