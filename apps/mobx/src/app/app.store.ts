@@ -1,27 +1,12 @@
 import { Injectable } from '@angular/core';
 import { action, observable, set } from 'mobx';
-import { AppDataService } from './app.data.service';
-
-export interface Order {
-  quantity: number;
-  price: number;
-}
-
-export interface AppState {
-  title: string;
-  order: Order;
-  error: Error;
-  loading: boolean;
-}
+import { ApiDataAccessService } from '@ngx-sm/api-data-access';
+import { Order } from '@ngx-sm/api-interfaces';
+import { AppState, INITIAL_STATE } from '@ngx-sm/flux';
 
 const initialState: AppState = {
+  ...INITIAL_STATE,
   title: 'Mobx',
-  order: {
-    quantity: 0,
-    price: 700
-  },
-  error: null,
-  loading: false
 };
 
 @Injectable({
@@ -30,15 +15,15 @@ const initialState: AppState = {
 export class AppStore {
   @observable state: AppState = initialState;
 
-  constructor(private _appDataService: AppDataService) { }
+  constructor(private _apiData: ApiDataAccessService) { }
 
   @action add(quantity: number): void {
     this.state.loading = true;
-    this._appDataService
-      .addProduct(this.state.order.quantity, quantity)
+    this._apiData
+      .order(String(this.state.order.quantity + quantity))
       .subscribe(
         order => this.addSuccess(order),
-        error => this.addFailure(error)
+        errorRes => this.addFailure(new Error(errorRes.error.message))
       );
   }
 

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { MobxAngularModule } from 'mobx-angular';
+import { ApiDataAccessModule } from '@ngx-sm/api-data-access';
 
 import { AppComponent } from './app.component';
 
@@ -13,7 +14,8 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     FormsModule,
-    MobxAngularModule
+    MobxAngularModule,
+    ApiDataAccessModule.forRoot({ prefix: 'api' })
   ],
   providers: [],
   bootstrap: [AppComponent]
