@@ -2,10 +2,7 @@ import { Reducer } from 'redux';
 import { FluxStandardAction } from 'flux-standard-action';
 import { OrderActionTypes, AllOrderActions } from './actions';
 
-export interface Order {
-  quantity: number;
-  price: number;
-}
+import { Order } from '@ngx-sm/api-interfaces'
 
 export interface AppState {
   title: string;
@@ -18,7 +15,8 @@ export const INITIAL_STATE: AppState = {
   title: 'Redux',
   order: {
     quantity: 0,
-    price: 700
+    price: 700,
+    sum: 0,
   },
   error: null,
   loading: false

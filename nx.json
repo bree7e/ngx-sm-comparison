@@ -52,6 +52,9 @@
     },
     "api-data-access": {
       "tags": []
+    },
+    "flux": {
+      "tags": []
     }
   }
 }

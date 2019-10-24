@@ -1,30 +1,23 @@
 import { Action } from 'redux';
-import { Order } from './reducer';
-
-// 1. Перечисление типов действий
-export enum OrderActionTypes {
-  ADD_ORDER = '[Order] Add',
-  ADD_ORDER_SUCCESS = '[Order] Added',
-  ADD_ORDER_FAILURE = '[Order] Add failed',
-  CLEAR_ORDER = '[Order] Clear'
-}
+import { Order } from '@ngx-sm/api-interfaces';
+import { OrderActionType } from '@ngx-sm/flux';
 
 // 2. Интерфейсы действий
-export interface AddOrder extends Action<OrderActionTypes.ADD_ORDER> {
+export interface AddOrder extends Action<OrderActionType.ADD_ORDER> {
   payload: { quantity: number };
 }
 
 export interface AddOrderSuccess
-  extends Action<OrderActionTypes.ADD_ORDER_SUCCESS> {
+  extends Action<OrderActionType.ADD_ORDER_SUCCESS> {
   payload: { order: Order };
 }
 
 export interface AddOrderFailure
-  extends Action<OrderActionTypes.ADD_ORDER_FAILURE> {
+  extends Action<OrderActionType.ADD_ORDER_FAILURE> {
   payload: { error: Error };
 }
 
-export interface ClearOrder extends Action<OrderActionTypes.CLEAR_ORDER> {}
+export interface ClearOrder extends Action<OrderActionType.CLEAR_ORDER> {}
 
 export type AllOrderActions =
   | AddOrder
@@ -36,28 +29,28 @@ export type AllOrderActions =
 export class OrderActionCreators {
   static add(payload: { quantity: number }): AddOrder {
     return {
-      type: OrderActionTypes.ADD_ORDER,
+      type: OrderActionType.ADD_ORDER,
       payload
     };
   }
 
   static addSuccess(payload: { order: Order }): AddOrderSuccess {
     return {
-      type: OrderActionTypes.ADD_ORDER_SUCCESS,
+      type: OrderActionType.ADD_ORDER_SUCCESS,
       payload
     };
   }
 
   static addFailure(payload: { error: Error }): AddOrderFailure {
     return {
-      type: OrderActionTypes.ADD_ORDER_FAILURE,
+      type: OrderActionType.ADD_ORDER_FAILURE,
       payload
     };
   }
 
   static clear(): ClearOrder {
     return {
-      type: OrderActionTypes.CLEAR_ORDER
+      type: OrderActionType.CLEAR_ORDER
     };
   }
 }

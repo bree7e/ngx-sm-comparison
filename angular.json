@@ -835,6 +835,33 @@
         }
       },
       "schematics": {}
+    },
+    "flux": {
+      "projectType": "library",
+      "root": "libs/flux",
+      "sourceRoot": "libs/flux/src",
+      "prefix": "ngx-sm",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/flux/tsconfig.lib.json",
+              "libs/flux/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/flux/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/flux/jest.config.js",
+            "tsConfig": "libs/flux/tsconfig.spec.json",
+            "setupFile": "libs/flux/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
     }
   },
   "cli": {

@@ -13,32 +13,26 @@ import {
 } from 'rxjs/operators';
 import { Order } from '@ngx-sm/api-interfaces';
 import { ApiDataAccessService } from '@ngx-sm/api-data-access';
+import { OrderActionType } from '@ngx-sm/flux';
 
 import { AppState } from './app.service.interface';
 
-export enum OrderActionTypes {
-  ADD_ORDER = '[Order] Add',
-  ADD_ORDER_SUCCESS = '[Order] Added success',
-  ADD_ORDER_FAILURE = '[Order] Add failure',
-  CLEAR_ORDER = '[Order] Clear',
-}
-
 export interface AddOrder {
-  type: OrderActionTypes.ADD_ORDER;
+  type: OrderActionType.ADD_ORDER;
   payload: { quantity: number };
 }
 
 export interface ClearOrder {
-  type: OrderActionTypes.CLEAR_ORDER;
+  type: OrderActionType.CLEAR_ORDER;
 }
 
 export interface AddOrderSuccess {
-  type: OrderActionTypes.ADD_ORDER_SUCCESS;
+  type: OrderActionType.ADD_ORDER_SUCCESS;
   payload: { order: Order };
 }
 
 export interface AddOrderFailure {
-  type: OrderActionTypes.ADD_ORDER_FAILURE;
+  type: OrderActionType.ADD_ORDER_FAILURE;
   payload: { error: Error };
 }
 
@@ -49,7 +43,7 @@ export type AllOrderActions =
   | ClearOrder;
 
 function ofType<T extends AllOrderActions>(
-  type: OrderActionTypes
+  type: OrderActionType
 ): MonoTypeOperatorFunction<T> {
   return filter(action => type === action.type);
 }
@@ -81,11 +75,11 @@ export class AppScanService {
   }
 
   add(quantity: number): void {
-    this.dispatch({ type: OrderActionTypes.ADD_ORDER, payload: { quantity } });
+    this.dispatch({ type: OrderActionType.ADD_ORDER, payload: { quantity } });
   }
 
   reset(): void {
-    this.dispatch({ type: OrderActionTypes.CLEAR_ORDER });
+    this.dispatch({ type: OrderActionType.CLEAR_ORDER });
   }
 
   private dispatch(action: AllOrderActions): void {
@@ -94,18 +88,18 @@ export class AppScanService {
 
   private _reducer(state: AppState, action: AllOrderActions): AppState {
     switch (action.type) {
-      case OrderActionTypes.ADD_ORDER: {
+      case OrderActionType.ADD_ORDER: {
         this._apiData
           .order(String(state.order.quantity + action.payload.quantity))
           .subscribe({
             next: order =>
               this.dispatch({
-                type: OrderActionTypes.ADD_ORDER_SUCCESS,
+                type: OrderActionType.ADD_ORDER_SUCCESS,
                 payload: { order },
               }),
             error: errorRes =>
               this.dispatch({
-                type: OrderActionTypes.ADD_ORDER_FAILURE,
+                type: OrderActionType.ADD_ORDER_FAILURE,
                 payload: { error: new Error(errorRes.error.message) },
               }),
           });
@@ -115,20 +109,20 @@ export class AppScanService {
           loading: true,
         };
       }
-      case OrderActionTypes.ADD_ORDER_SUCCESS:
+      case OrderActionType.ADD_ORDER_SUCCESS:
         return {
           ...state,
           order: action.payload.order,
           error: null,
           loading: false,
         };
-      case OrderActionTypes.ADD_ORDER_FAILURE:
+      case OrderActionType.ADD_ORDER_FAILURE:
         return {
           ...state,
           error: action.payload.error,
           loading: false,
         };
-      case OrderActionTypes.CLEAR_ORDER: {
+      case OrderActionType.CLEAR_ORDER: {
         return {
           ...this.initialState,
         };
@@ -145,7 +139,7 @@ export class AppScanService {
   private _initAsyncActions(): void {
     this._action$
       .pipe(
-        filter(action => action.type === OrderActionTypes.ADD_ORDER),
+        filter(action => action.type === OrderActionType.ADD_ORDER),
         map((action: AddOrder) => action),
         withLatestFrom(this.state$),
         switchMap(([action, state]) =>
@@ -157,12 +151,12 @@ export class AppScanService {
       .subscribe({
         next: order =>
           this.dispatch({
-            type: OrderActionTypes.ADD_ORDER_SUCCESS,
+            type: OrderActionType.ADD_ORDER_SUCCESS,
             payload: { order },
           }),
         error: errorRes =>
           this.dispatch({
-            type: OrderActionTypes.ADD_ORDER_FAILURE,
+            type: OrderActionType.ADD_ORDER_FAILURE,
             payload: { error: new Error(errorRes.error.message) },
           }),
       });
