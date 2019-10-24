@@ -14,8 +14,12 @@ import {
 import { Order } from '@ngx-sm/api-interfaces';
 import { ApiDataAccessService } from '@ngx-sm/api-data-access';
 import { OrderActionType } from '@ngx-sm/flux';
+import { AppState, INITIAL_STATE } from '@ngx-sm/flux';
 
-import { AppState } from './app.service.interface';
+const initialState: AppState = {
+  ...INITIAL_STATE,
+  title: 'Rxjs + Scan',
+};
 
 export interface AddOrder {
   type: OrderActionType.ADD_ORDER;
@@ -64,7 +68,7 @@ export class AppScanService {
   };
   private _action$ = new Subject<AllOrderActions>();
   readonly state$ = this._action$.pipe(
-    scan(this._reducer.bind(this), this.initialState), // magic is here!
+    scan(this._reducer.bind(this), initialState), // magic is here!
     publishReplay(1),
     refCount()
   );
@@ -124,7 +128,7 @@ export class AppScanService {
         };
       case OrderActionType.CLEAR_ORDER: {
         return {
-          ...this.initialState,
+          ...initialState,
         };
       }
       default: {

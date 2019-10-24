@@ -6,7 +6,7 @@ import { OrderActionType } from '@ngx-sm/flux';
 export interface AddOrder extends Action<OrderActionType.ADD_ORDER> {
   payload: { quantity: number };
 }
-
+  
 export interface AddOrderSuccess
   extends Action<OrderActionType.ADD_ORDER_SUCCESS> {
   payload: { order: Order };

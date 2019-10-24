@@ -1,26 +1,11 @@
 import { Reducer } from 'redux';
 import { FluxStandardAction } from 'flux-standard-action';
 import { AllOrderActions } from './actions';
-import { OrderActionType } from '@ngx-sm/flux';
+import { OrderActionType, AppState, INITIAL_STATE } from '@ngx-sm/flux';
 
-import { Order } from '@ngx-sm/api-interfaces'
-
-export interface AppState {
-  title: string;
-  order: Order;
-  error: Error;
-  loading: boolean;
-}
-
-export const INITIAL_STATE: AppState = {
-  title: 'Redux',
-  order: {
-    quantity: 0,
-    price: 700,
-    sum: 0,
-  },
-  error: null,
-  loading: false
+export const initalState: AppState = {
+  ...INITIAL_STATE,
+  title: 'Redux Observable',
 };
 
 /**
@@ -57,7 +42,7 @@ export const orderReducer: Reducer<AppState> = (
       };
     case OrderActionType.CLEAR_ORDER:
       return {
-        ...INITIAL_STATE
+        ...initalState
       };
     default:
       return lastState;

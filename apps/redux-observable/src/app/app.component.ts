@@ -3,7 +3,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
 
-import { AppState } from './store/reducer';
+import { AppState } from '@ngx-sm/flux';
 import { OrderActionsService } from './action.service';
 
 @Component({

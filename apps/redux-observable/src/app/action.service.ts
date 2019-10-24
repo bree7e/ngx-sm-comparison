@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { NgRedux } from '@angular-redux/store';
 
-import { AppState } from './store/reducer';
+import { AppState } from '@ngx-sm/flux';
 import { OrderActionCreators } from './store/actions';
 
 @Injectable()

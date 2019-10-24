@@ -4,25 +4,19 @@ import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiDataAccessService } from '@ngx-sm/api-data-access';
 import { Order } from '@ngx-sm/api-interfaces';
+import { AppState, INITIAL_STATE } from '@ngx-sm/flux';
 
-import { AppState } from './app.service.interface';
+const initialState: AppState = {
+  ...INITIAL_STATE,
+  title: 'Rxjs',
+};
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
-  readonly initialState: AppState = {
-    title: 'Rxjs',
-    order: {
-      quantity: 0,
-      price: 700,
-      sum: null
-    },
-    error: null,
-    loading: false
-  };
-
-  private _state = new BehaviorSubject<AppState>(this.initialState);
+  private _state = new BehaviorSubject<AppState>(initialState);
   public readonly state$ = this._state.asObservable();
   public loading$ = this.state$.pipe(map(s => s.loading));
 
@@ -64,7 +58,7 @@ export class AppService {
   }
 
   reset(): void {
-    this._state.next(this.initialState);
+    this._state.next(initialState);
     this._apiData.hello().subscribe(r => console.log(r));
   }
 }

@@ -11,7 +11,7 @@ import {
   AddOrder,
   OrderActionCreators
 } from './actions';
-import { AppState } from './reducer';
+import { AppState } from '@ngx-sm/flux';
 
 @Injectable()
 export class OrderEpics {

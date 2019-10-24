@@ -12,7 +12,8 @@ import { createLogger } from 'redux-logger';
 import { ApiDataAccessModule } from '@ngx-sm/api-data-access';
 
 import { AppComponent } from './app.component';
-import { orderReducer, INITIAL_STATE, AppState } from './store/reducer';
+import { orderReducer, initalState } from './store/reducer';
+import { AppState, } from '@ngx-sm/flux';
 import { OrderEpics } from './store/epics';
 import { OrderActionsService } from './action.service';
 import { AllOrderActions } from './store/actions';
@@ -45,7 +46,7 @@ export class AppModule {
     const middleware = [createLogger(), epicMiddleware];
     ngRedux.configureStore(
       orderReducer,
-      INITIAL_STATE,
+      initalState,
       middleware,
       storeEnhancers
     );
