@@ -1,26 +1,10 @@
 import * as ProductActions from './actions';
 import { createReducer, on, Action } from '@ngrx/store';
-
-export interface Order {
-  quantity: number;
-  price: number;
-}
-
-export interface AppState {
-  title: string;
-  order: Order;
-  error: Error;
-  loading: boolean;
-}
+import { AppState, INITIAL_STATE } from '@ngx-sm/flux';
 
 const initialState: AppState = {
+  ...INITIAL_STATE,
   title: 'NgRx',
-  order: {
-    quantity: 0,
-    price: 700,
-  },
-  error: null,
-  loading: false,
 };
 
 const orderReducer = createReducer(

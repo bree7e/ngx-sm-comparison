@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { AppState } from './reducer';
+import { AppState } from '@ngx-sm/flux';
 
 export const getState = createFeatureSelector<AppState>('state');
 export const getTitle = createSelector(getState, state => state.title);

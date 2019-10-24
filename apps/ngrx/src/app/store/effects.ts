@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 
-import { of, Observable } from 'rxjs';
-import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
-import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
+import { of } from 'rxjs';
+import { catchError, map, withLatestFrom, switchMap } from 'rxjs/operators';
+import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { AppState } from '@ngx-sm/flux';
+import { ApiDataAccessService } from '@ngx-sm/api-data-access';
 
-import { AppService } from '../app.service';
 import * as ProductActions from './actions';
-import { AppState } from './reducer';
 import { getQuantity } from './selectors';
 
 @Injectable()
 export class OrderEffects {
   constructor(
     private actions$: Actions,
-    private _appService: AppService,
+    private _apiData: ApiDataAccessService,
     private _store: Store<AppState>
   ) {}
 
@@ -27,10 +27,10 @@ export class OrderEffects {
       ofType(ProductActions.addOrder),
       map(action => action.quantity),
       withLatestFrom(this._store.select(getQuantity)),
-      mergeMap(([quantity, currentQuantity]) =>
-        this._appService.addProduct(currentQuantity, quantity).pipe(
+      switchMap(([quantity, currentQuantity]) =>
+        this._apiData.order(String(currentQuantity + quantity)).pipe(
           map(order => ProductActions.addOrderSuccess({ order })),
-          catchError(error => of(ProductActions.addOrderFailure({ error })))
+          catchError(errorRes => of(ProductActions.addOrderFailure({ error: new Error(errorRes.error.message) })))
         )
       )
     )

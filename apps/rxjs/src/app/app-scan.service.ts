@@ -56,16 +56,6 @@ function ofType<T extends AllOrderActions>(
   providedIn: 'root',
 })
 export class AppScanService {
-  readonly initialState: AppState = {
-    title: 'Rxjs',
-    order: {
-      quantity: 0,
-      price: 700,
-      sum: null
-    },
-    error: null,
-    loading: false,
-  };
   private _action$ = new Subject<AllOrderActions>();
   readonly state$ = this._action$.pipe(
     scan(this._reducer.bind(this), initialState), // magic is here!

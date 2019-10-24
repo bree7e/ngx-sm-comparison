@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getState, getLoading } from './store/selectors';
-import { AppState } from './store/reducer';
+import { AppState } from '@ngx-sm/flux';
 import { addOrder, clearOrder } from './store/actions';
 
 @Component({
