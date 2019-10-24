@@ -1,6 +1,7 @@
 import { Reducer } from 'redux';
 import { FluxStandardAction } from 'flux-standard-action';
-import { OrderActionTypes, AllOrderActions } from './actions';
+import { AllOrderActions } from './actions';
+import { OrderActionType } from '@ngx-sm/flux';
 
 import { Order } from '@ngx-sm/api-interfaces'
 
@@ -35,26 +36,26 @@ export const orderReducer: Reducer<AppState> = (
   action: AllOrderActions // FluxStandardAction<AppState>
 ): AppState => {
   switch (action.type) {
-    case OrderActionTypes.ADD_ORDER:
+    case OrderActionType.ADD_ORDER:
       return {
         ...lastState,
         error: null,
         loading: true
       };
-    case OrderActionTypes.ADD_ORDER_SUCCESS:
+    case OrderActionType.ADD_ORDER_SUCCESS:
       return {
         ...lastState,
         order: action.payload.order,
         error: null,
         loading: false
       };
-    case OrderActionTypes.ADD_ORDER_FAILURE:
+    case OrderActionType.ADD_ORDER_FAILURE:
       return {
         ...lastState,
         error: action.payload.error,
         loading: false
       };
-    case OrderActionTypes.CLEAR_ORDER:
+    case OrderActionType.CLEAR_ORDER:
       return {
         ...INITIAL_STATE
       };

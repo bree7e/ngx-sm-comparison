@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { mergeMap, map, catchError, withLatestFrom } from 'rxjs/operators';
 import { ActionsObservable, ofType, StateObservable } from 'redux-observable';
+import { OrderActionType } from '@ngx-sm/flux';
+import { ApiDataAccessService } from '@ngx-sm/api-data-access';
 
-import { AppDataService } from '../app.data.service';
 import {
-  OrderActionTypes,
   AllOrderActions,
   AddOrder,
   OrderActionCreators
@@ -15,24 +15,24 @@ import { AppState } from './reducer';
 
 @Injectable()
 export class OrderEpics {
-  constructor(private _appDataService: AppDataService) {}
+  constructor(private _apiData: ApiDataAccessService) {}
 
   addOrder = (
     action$: ActionsObservable<AllOrderActions>,
     state$: StateObservable<AppState>
   ) => {
     return action$.pipe(
-      ofType(OrderActionTypes.ADD_ORDER),
+      ofType(OrderActionType.ADD_ORDER),
       withLatestFrom(state$),
       mergeMap(([action, lastState]) =>
-        this._appDataService
-          .addProduct(
-            lastState.order.quantity,
+        this._apiData
+          .order(String(
+            lastState.order.quantity +
             (action as AddOrder).payload.quantity // (<AddOrder>action).payload.quantity
-          )
+          ))
           .pipe(
             map(order => OrderActionCreators.addSuccess({ order })),
-            catchError(error => of(OrderActionCreators.addFailure({ error })))
+            catchError(errorRes => of(OrderActionCreators.addFailure({ error: new Error(errorRes.error.message) })))
           )
       )
     );

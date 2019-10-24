@@ -9,6 +9,7 @@ import {
 } from '@angular-redux/store';
 import { createEpicMiddleware } from 'redux-observable-es6-compat';
 import { createLogger } from 'redux-logger';
+import { ApiDataAccessModule } from '@ngx-sm/api-data-access';
 
 import { AppComponent } from './app.component';
 import { orderReducer, INITIAL_STATE, AppState } from './store/reducer';
@@ -18,7 +19,12 @@ import { AllOrderActions } from './store/actions';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, FormsModule, NgReduxModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    NgReduxModule,
+    ApiDataAccessModule.forRoot({ prefix: 'api' })
+  ],
   providers: [OrderActionsService, OrderEpics],
   bootstrap: [AppComponent]
 })
@@ -30,7 +36,12 @@ export class AppModule {
   ) {
     const storeEnhancers = devTools.isEnabled() ? [devTools.enhancer()] : [];
     /** @see https://github.com/redux-observable/redux-observable/issues/555 */
-    const epicMiddleware = createEpicMiddleware<AllOrderActions, AllOrderActions, AppState, void>();
+    const epicMiddleware = createEpicMiddleware<
+      AllOrderActions,
+      AllOrderActions,
+      AppState,
+      void
+    >();
     const middleware = [createLogger(), epicMiddleware];
     ngRedux.configureStore(
       orderReducer,
