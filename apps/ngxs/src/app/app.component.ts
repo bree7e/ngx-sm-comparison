@@ -4,7 +4,8 @@ import { Store, Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
 import { AddOrder, ClearOrder } from './store/actions';
-import { AppStateModel, AppState } from './store/state';
+import { AppState } from './store/state';
+import { AppState as AppStateModel } from '@ngx-sm/flux'
 
 @Component({
   selector: 'app-root',

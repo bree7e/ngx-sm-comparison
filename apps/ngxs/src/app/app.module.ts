@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { ApiDataAccessModule } from '@ngx-sm/api-data-access';
 
 import { AppComponent } from './app.component';
 import { AppState } from './store/state';
@@ -18,7 +19,8 @@ import { AppState } from './store/state';
     FormsModule,
     NgxsModule.forRoot([AppState]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot()
+    NgxsLoggerPluginModule.forRoot(),
+    ApiDataAccessModule.forRoot({ prefix: 'api' })
   ],
   providers: [],
   bootstrap: [AppComponent]

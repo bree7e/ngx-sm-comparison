@@ -1,34 +1,27 @@
-import { Order } from './state';
+import { Order } from '@ngx-sm/api-interfaces';
+import { OrderActionType } from '@ngx-sm/flux';
 
 /**
  * В action'ах можно свободно обойтись без payload и передавать
  * напрямую quantity, order и error
  */
 
-
-export enum OrderActionTypes {
-  ADD_ORDER = '[Order] Add',
-  ADD_ORDER_SUCCESS = '[Order] Added success',
-  ADD_ORDER_FAILURE = '[Order] Add failure',
-  CLEAR_ORDER = '[Order] Clear'
-}
-
 export class AddOrder {
-  static readonly type = OrderActionTypes.ADD_ORDER;
+  static readonly type = OrderActionType.ADD_ORDER;
   constructor(public payload: { quantity: number }) {}
 }
 
 export class ClearOrder {
-  static readonly type = OrderActionTypes.CLEAR_ORDER;
+  static readonly type = OrderActionType.CLEAR_ORDER;
   constructor() {}
 }
 
 export class AddOrderSuccess {
-  static readonly type = OrderActionTypes.ADD_ORDER_SUCCESS;
+  static readonly type = OrderActionType.ADD_ORDER_SUCCESS;
   constructor(public payload: { order: Order }) {}
 }
 
 export class AddOrderFailure {
-  static readonly type = OrderActionTypes.ADD_ORDER_FAILURE;
+  static readonly type = OrderActionType.ADD_ORDER_FAILURE;
   constructor(public payload: { error: Error }) {}
 }

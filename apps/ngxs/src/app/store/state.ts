@@ -6,30 +6,13 @@ import {
   AddOrderSuccess,
   AddOrderFailure
 } from './actions';
-import { AppService } from '../app.service';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators'
+import { INITIAL_STATE, AppState as AppStateModel } from '@ngx-sm/flux'
+import { ApiDataAccessService } from '@ngx-sm/api-data-access';
 
-export interface Order {
-  quantity: number;
-  price: number;
-}
-
-/** Модель состояния */
-export interface AppStateModel {
-  title: string;
-  order: Order;
-  error: Error;
-  loading: boolean;
-}
-
-const initialState: AppStateModel = {
+const initialState: AppStateModel = { 
+  ...INITIAL_STATE, 
   title: 'Ngxs',
-  order: {
-    quantity: 0,
-    price: 700
-  },
-  error: null,
-  loading: false
 };
 
 /**
@@ -43,7 +26,7 @@ const initialState: AppStateModel = {
   defaults: initialState
 })
 export class AppState {
-  constructor(private _appService: AppService) {}
+  constructor(private _apiData: ApiDataAccessService) {}
 
   @Selector()
   static getQuantity(state: AppStateModel) {
@@ -74,9 +57,9 @@ export class AppState {
     //   loading: true
     // });
     const currentValue = state.order.quantity;
-    return this._appService.addProduct(currentValue, action.payload.quantity).pipe(
+    return this._apiData.order(String(currentValue + action.payload.quantity)).pipe(
       map(order => ctx.dispatch(new AddOrderSuccess({ order }))),
-      catchError(error => ctx.dispatch(new AddOrderFailure({ error })))
+      catchError(errorRes => ctx.dispatch(new AddOrderFailure({ error: new Error(errorRes.error.message) })))
     );
   }
 
