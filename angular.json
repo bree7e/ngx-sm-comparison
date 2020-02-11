@@ -14,7 +14,9 @@
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": ["apps/api/src/assets"]
+            "assets": [
+              "apps/api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -43,7 +45,10 @@
               "apps/api/tsconfig.app.json",
               "apps/api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/api/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/api/**"
+            ]
           }
         },
         "test": {
@@ -68,7 +73,10 @@
               "libs/api-interfaces/tsconfig.lib.json",
               "libs/api-interfaces/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/api-interfaces/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/api-interfaces/**"
+            ]
           }
         },
         "test": {
@@ -99,9 +107,14 @@
             "main": "apps/rxjs/src/main.ts",
             "polyfills": "apps/rxjs/src/polyfills.ts",
             "tsConfig": "apps/rxjs/tsconfig.app.json",
-            "aot": false,
-            "assets": ["apps/rxjs/src/favicon.ico", "apps/rxjs/src/assets"],
-            "styles": ["apps/rxjs/src/styles.scss"],
+            "aot": true,
+            "assets": [
+              "apps/rxjs/src/favicon.ico",
+              "apps/rxjs/src/assets"
+            ],
+            "styles": [
+              "apps/rxjs/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -117,7 +130,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -161,7 +173,10 @@
               "apps/rxjs/tsconfig.app.json",
               "apps/rxjs/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/rxjs/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/rxjs/**"
+            ]
           }
         },
         "test": {
@@ -195,8 +210,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/rxjs-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/rxjs-e2e/**"]
+            "tsConfig": [
+              "apps/rxjs-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/rxjs-e2e/**"
+            ]
           }
         }
       }
@@ -220,9 +240,14 @@
             "main": "apps/ngrx/src/main.ts",
             "polyfills": "apps/ngrx/src/polyfills.ts",
             "tsConfig": "apps/ngrx/tsconfig.app.json",
-            "aot": false,
-            "assets": ["apps/ngrx/src/favicon.ico", "apps/ngrx/src/assets"],
-            "styles": ["apps/ngrx/src/styles.scss"],
+            "aot": true,
+            "assets": [
+              "apps/ngrx/src/favicon.ico",
+              "apps/ngrx/src/assets"
+            ],
+            "styles": [
+              "apps/ngrx/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -238,7 +263,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -282,7 +306,10 @@
               "apps/ngrx/tsconfig.app.json",
               "apps/ngrx/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/ngrx/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/ngrx/**"
+            ]
           }
         },
         "test": {
@@ -316,8 +343,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/ngrx-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/ngrx-e2e/**"]
+            "tsConfig": [
+              "apps/ngrx-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/ngrx-e2e/**"
+            ]
           }
         }
       }
@@ -341,9 +373,14 @@
             "main": "apps/ngxs/src/main.ts",
             "polyfills": "apps/ngxs/src/polyfills.ts",
             "tsConfig": "apps/ngxs/tsconfig.app.json",
-            "aot": false,
-            "assets": ["apps/ngxs/src/favicon.ico", "apps/ngxs/src/assets"],
-            "styles": ["apps/ngxs/src/styles.scss"],
+            "aot": true,
+            "assets": [
+              "apps/ngxs/src/favicon.ico",
+              "apps/ngxs/src/assets"
+            ],
+            "styles": [
+              "apps/ngxs/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -359,7 +396,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -403,7 +439,10 @@
               "apps/ngxs/tsconfig.app.json",
               "apps/ngxs/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/ngxs/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/ngxs/**"
+            ]
           }
         },
         "test": {
@@ -437,8 +476,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/ngxs-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/ngxs-e2e/**"]
+            "tsConfig": [
+              "apps/ngxs-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/ngxs-e2e/**"
+            ]
           }
         }
       }
@@ -462,9 +506,14 @@
             "main": "apps/akita/src/main.ts",
             "polyfills": "apps/akita/src/polyfills.ts",
             "tsConfig": "apps/akita/tsconfig.app.json",
-            "aot": false,
-            "assets": ["apps/akita/src/favicon.ico", "apps/akita/src/assets"],
-            "styles": ["apps/akita/src/styles.scss"],
+            "aot": true,
+            "assets": [
+              "apps/akita/src/favicon.ico",
+              "apps/akita/src/assets"
+            ],
+            "styles": [
+              "apps/akita/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -480,7 +529,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -524,7 +572,10 @@
               "apps/akita/tsconfig.app.json",
               "apps/akita/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/akita/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/akita/**"
+            ]
           }
         },
         "test": {
@@ -558,8 +609,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/akita-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/akita-e2e/**"]
+            "tsConfig": [
+              "apps/akita-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/akita-e2e/**"
+            ]
           }
         }
       }
@@ -583,9 +639,14 @@
             "main": "apps/mobx/src/main.ts",
             "polyfills": "apps/mobx/src/polyfills.ts",
             "tsConfig": "apps/mobx/tsconfig.app.json",
-            "aot": false,
-            "assets": ["apps/mobx/src/favicon.ico", "apps/mobx/src/assets"],
-            "styles": ["apps/mobx/src/styles.scss"],
+            "aot": true,
+            "assets": [
+              "apps/mobx/src/favicon.ico",
+              "apps/mobx/src/assets"
+            ],
+            "styles": [
+              "apps/mobx/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -601,7 +662,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -645,7 +705,10 @@
               "apps/mobx/tsconfig.app.json",
               "apps/mobx/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/mobx/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/mobx/**"
+            ]
           }
         },
         "test": {
@@ -679,8 +742,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/mobx-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/mobx-e2e/**"]
+            "tsConfig": [
+              "apps/mobx-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/mobx-e2e/**"
+            ]
           }
         }
       }
@@ -704,12 +772,14 @@
             "main": "apps/redux-observable/src/main.ts",
             "polyfills": "apps/redux-observable/src/polyfills.ts",
             "tsConfig": "apps/redux-observable/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "apps/redux-observable/src/favicon.ico",
               "apps/redux-observable/src/assets"
             ],
-            "styles": ["apps/redux-observable/src/styles.scss"],
+            "styles": [
+              "apps/redux-observable/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -725,7 +795,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -769,7 +838,10 @@
               "apps/redux-observable/tsconfig.app.json",
               "apps/redux-observable/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/redux-observable/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/redux-observable/**"
+            ]
           }
         },
         "test": {
@@ -803,8 +875,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/redux-observable-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/redux-observable-e2e/**"]
+            "tsConfig": [
+              "apps/redux-observable-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/redux-observable-e2e/**"
+            ]
           }
         }
       }
@@ -822,7 +899,10 @@
               "libs/api-data-access/tsconfig.lib.json",
               "libs/api-data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/api-data-access/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/api-data-access/**"
+            ]
           }
         },
         "test": {
@@ -849,7 +929,10 @@
               "libs/flux/tsconfig.lib.json",
               "libs/flux/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/flux/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/flux/**"
+            ]
           }
         },
         "test": {
@@ -865,7 +948,8 @@
     }
   },
   "cli": {
-    "defaultCollection": "@nrwl/angular"
+    "defaultCollection": "@nrwl/angular",
+    "analytics": "33bf0f9b-c893-4734-bd8f-1e5948f5c63f"
   },
   "schematics": {
     "@nrwl/angular:application": {

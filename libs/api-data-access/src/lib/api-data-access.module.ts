@@ -21,7 +21,7 @@ export class ApiDataAccessModule {  // необязательный шаблон
    * Метод который будет вызван когда модуль импортиться в root модуле
    * @param config - конфигурация, в данном случае задается имя пользователя
    */
-  static forRoot(config: ApiDataConfig): ModuleWithProviders {
+  static forRoot(config: ApiDataConfig): ModuleWithProviders<ApiDataAccessModule> {
     return {
       ngModule: ApiDataAccessModule,
       providers: [

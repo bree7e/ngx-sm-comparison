@@ -15,37 +15,43 @@
       "tags": []
     },
     "rxjs-e2e": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["rxjs"]
     },
     "rxjs": {
       "tags": []
     },
     "ngrx-e2e": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["ngrx"]
     },
     "ngrx": {
       "tags": []
     },
     "ngxs-e2e": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["ngxs"]
     },
     "ngxs": {
       "tags": []
     },
     "akita-e2e": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["akita"]
     },
     "akita": {
       "tags": []
     },
     "mobx-e2e": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["mobx"]
     },
     "mobx": {
       "tags": []
     },
     "redux-observable-e2e": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["redux-observable"]
     },
     "redux-observable": {
       "tags": []
